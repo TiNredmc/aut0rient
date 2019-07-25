@@ -36,3 +36,5 @@ gcc main.c ads1115_rpi.c -o aut0rient
 chmod +x aut0rient //optional
 ./aut0rient //if thing works go put someware to make it auto-start.
 ```
+# What I expect from this project 
+Well, I always want to make something. Something really cool. Something really cheap and working. I think this project will make me more comfortable when using external monitor (or event the laptop monitor) for different usage like watch video or writing code.
