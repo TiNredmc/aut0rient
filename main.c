@@ -33,9 +33,9 @@ int main(void){
 	
 	if ( (PrevX < (Ax + 0.1)) || (PrevX > (Ax + 0.1)) || (PrevX != Ax) ){
 		if ((Ax < 2.00 && Ax > 1.80))  {
-		system ("xrandr --output LVDS-1-1 --rotate right");// rotate right
-		}	else if ((Ax < 1.35 && Ax > 1.30)) {
 		system ("xrandr --output LVDS-1-1 --rotate left");// rotate left
+		}	else if ((Ax < 1.35 && Ax > 1.30)) {
+		system ("xrandr --output LVDS-1-1 --rotate right");// rotate right
 		}
 	}else if ( (PrevX < (Ax + 0.1)) || (PrevX > (Ax + 0.1)) || (PrevX == Ax) ) {
 		return 0;
