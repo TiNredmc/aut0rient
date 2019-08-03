@@ -2,6 +2,7 @@
 Add support for the screen auto rotation to most non-convertable laptop.
 Made By TinLethax, Thanks to Giovanni Bauermeister for the driver library
 https://github.com/giobauermeister/ads1115-linux-rpi
+NOTE that the voltage of the sensor and ADC are (and must be) 3.3volt to fit perfectly with my pre-configured values (in if..else if.. else). You can easily use the AMS1117 (select the 3.3volt insetead of other).
 */
 
 #include <stdio.h>
@@ -31,9 +32,9 @@ int main(void){
 	Ay = readVoltage(1); // read the Y axis voltage value on the ADC port A1
 	
 	if ( (PrevX < (Ax + 0.1)) || (PrevX > (Ax + 0.1)) || (PrevX != Ax) ){
-		if ((Ax < 0.410 && Ax > 0.38) && (Ay != Ax))  {
+		if ((Ax < 2.00 && Ax > 1.80))  {
 		system ("xrandr --output LVDS-1-1 --rotate right");// rotate right
-		}	else if ((Ax < 0.28 && Ax > 0.24) && (Ay != Ax)) {
+		}	else if ((Ax < 1.35 && Ax > 1.30)) {
 		system ("xrandr --output LVDS-1-1 --rotate left");// rotate left
 		}
 	}else if ( (PrevX < (Ax + 0.1)) || (PrevX > (Ax + 0.1)) || (PrevX == Ax) ) {
@@ -41,9 +42,9 @@ int main(void){
 	}
 
 	if ( (PrevY < (Ay + 0.1)) || (PrevY > (Ay + 0.1)) || (PrevY != Ay) ){
-		if ((Ay < 0.410 && Ay > 0.38) && (Ay != Ay))  {
+		if ((Ay < 2.00 && Ay > 1.80))  {
 		system ("xrandr --output LVDS-1-1 --rotate inverted");// rotate inverted
-		}	else if ((Ay < 0.28 && Ay > 0.24) && (Ay != Ax)) {
+		}	else if ((Ay < 1.35 && Ay > 1.30)) {
 		system ("xrandr --output LVDS-1-1 --rotate normal");// rotate normal
 		}
 	}else if ( (PrevY < (Ay + 0.1)) || (PrevY > (Ay + 0.1)) || (PrevY == Ay) ) {
