@@ -18,34 +18,35 @@ float Ax , Ay ;
 float PrevX , PrevY ;
 
 int main(void){
-//system ("dmesg"); 
-	if(openI2CBus("/dev/i2c-1") == -1)
+	system ("modprobe i2c-dev"); 
+	system ("export DISPLAY=:0.0");
+	if(openI2CBus("/dev/i2c-3") == -1)
 	{
 		printf("Can't connect to the ADS1115 \n");
-		printf("Please check the connection, ADC, Sensor");
+		printf("Please check the connection, ADC, Sensor\n");
 	}else {
 	setI2CSlave(0x48); // set the I2C address of the ADS1115 at 0x48
 	while(1){
-	sleep(1.6);// delay like in the mobile phone 	
+	sleep(1);// delay like in the mobile phone 	
 	
-	Ax = readVoltage(0); // read the X axis voltage value on the ADC port A0
-	Ay = readVoltage(1); // read the Y axis voltage value on the ADC port A1
+	Ax = readVoltage(1); // read the X axis voltage value on the ADC port A0
+	Ay = readVoltage(0); // read the Y axis voltage value on the ADC port A1
 	
 	if ( (PrevX < (Ax + 0.1)) || (PrevX > (Ax + 0.1)) || (PrevX != Ax) ){
-		if ((Ax < 2.00 && Ax > 1.80))  {
-		system ("xrandr --output LVDS-1-1 --rotate left");// rotate left
-		}	else if ((Ax < 1.35 && Ax > 1.30)) {
-		system ("xrandr --output LVDS-1-1 --rotate right");// rotate right
+		if ((Ax < 1.85 && Ax > 1.80))  {
+		system ("xrandr --output LVDS1 --rotate left");// rotate left
+		}	else if ((Ax < 1.27 && Ax > 1.19)) {
+		system ("xrandr --output LVDS1 --rotate right");// rotate right
 		}
 	}else if ( (PrevX < (Ax + 0.1)) || (PrevX > (Ax + 0.1)) || (PrevX == Ax) ) {
 		return 0;
 	}
 
 	if ( (PrevY < (Ay + 0.1)) || (PrevY > (Ay + 0.1)) || (PrevY != Ay) ){
-		if ((Ay < 2.00 && Ay > 1.80))  {
-		system ("xrandr --output LVDS-1-1 --rotate inverted");// rotate inverted
-		}	else if ((Ay < 1.35 && Ay > 1.30)) {
-		system ("xrandr --output LVDS-1-1 --rotate normal");// rotate normal
+		if ((Ay < 1.85 && Ay > 1.80))  {
+		system ("xrandr --output LVDS1 --rotate normal");// rotate inverted
+		}	else if ((Ay < 1.27 && Ay > 1.19)) {
+		system ("xrandr --output LVDS1 --rotate inverted");// rotate normal
 		}
 	}else if ( (PrevY < (Ay + 0.1)) || (PrevY > (Ay + 0.1)) || (PrevY == Ay) ) {
 		return 0;
